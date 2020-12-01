@@ -35,7 +35,7 @@
 </div>
 
 
-  <ion-button mode="ios" (click)="makeMove()">
+  <ion-button mode="ios" (click)="makeMove()" [disabled]="gameEnded">
     Make a move
   </ion-button>
 </ion-content>
