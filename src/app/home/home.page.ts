@@ -8,9 +8,11 @@ import { Component } from '@angular/core';
 export class HomePage {
   public allBeakers =
   [
-    [1, 0, 0],
-    [2, 1, 2],
-    [2, 1, 0]
+    [1, 3, 2, 1],
+    [1, 3, 2, 2],
+    [3, 2, 1, 3],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0]
   ];
   public move = {
     oldBeaker: 1,
@@ -20,13 +22,13 @@ export class HomePage {
   constructor() {}
 
 
-  
+
   public makeMove() {
     const oldBeaker = this.allBeakers[this.move.oldBeaker - 1];
     const newBeaker = this.allBeakers[this.move.newBeaker - 1];
     const unitsToMove = this.getUnitLength(oldBeaker);
 
-    if (this.isMoveLegal() === true) {
+    if (this.isMoveLegal() === true && this.move.oldBeaker !== this.move.newBeaker) {
       for (let i = unitsToMove; i > 0; i--) {
         const colorOfUnitToMove = this.findLastNonZeroElement(oldBeaker);
         const indexOfOldUnit = this.getUnitLength(oldBeaker);
@@ -50,7 +52,7 @@ export class HomePage {
     const oldBeakerUnitLength = this.getUnitLength(oldBeaker);
     const newBeakerUnitLength = this.getUnitLength(newBeaker);
 
-    if ((oldBeakerUnitLength + newBeakerUnitLength) > 3) {
+    if ((oldBeakerUnitLength + newBeakerUnitLength) > 5) {
       // not enough space
       firstRequirement = false;
     } else {
@@ -62,6 +64,7 @@ export class HomePage {
         this.findLastNonZeroElement(newBeaker) === 0) {
       secondRequirement = true;
     }
+    console.log()
 
     return (firstRequirement && secondRequirement);
   }
