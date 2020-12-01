@@ -27,11 +27,21 @@ export class HomePage {
     let firstRequirement = false;
     let secondRequirement = false;
 
-    if (this.allBeakers[this.move.oldBeaker - 1][2] === 0) {
+    const oldBeaker = this.allBeakers[this.move.oldBeaker - 1];
+    const newBeaker = this.allBeakers[this.move.newBeaker - 1];
+
+    const oldBeakerUnitLength = this.getUnitLength(oldBeaker);
+    const newBeakerUnitLength = this.getUnitLength(newBeaker);
+
+    if ((oldBeakerUnitLength + newBeakerUnitLength) > 3) {
+      // not enough space
+      firstRequirement = false;
+    } else {
+      // enough space
       firstRequirement = true;
     }
 
-    if (this.findLastNonZeroElement(this.allBeakers[this.move.oldBeaker - 1]) === this.findLastNonZeroElement(this.allBeakers[this.move.newBeaker - 1])) {
+    if (this.findLastNonZeroElement(oldBeaker) === this.findLastNonZeroElement(newBeaker)) {
       secondRequirement = true;
     }
 
@@ -53,5 +63,19 @@ export class HomePage {
     );
 
     return lastNonZero;
+  }
+
+  private getUnitLength(array: number[]) {
+    let unitLength = 0;
+
+    array.forEach(
+      (element, index) => {
+        if (element > 0) {
+          unitLength = index + 1;
+        }
+      }
+    );
+
+    return unitLength;
   }
 }
