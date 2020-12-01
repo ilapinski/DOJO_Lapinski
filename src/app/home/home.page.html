@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      SE01 Assessment - Igor Lapinski
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -13,8 +13,29 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div class="content">
+    <div class="ion-padding" *ngFor="let beaker of allBeakers, let i = index">
+      <div class="unit" [id]="unit" *ngFor="let unit of beaker">
+  
+      </div>
+    </div>
   </div>
+
+
+  <div class="ion-padding">
+    Move from beaker:
+    <ion-input placeholder="Beaker" type="number" min="1" max="3" [(ngModel)]="move.oldBeaker">
+    </ion-input>
+  </div>
+
+<div class="ion-padding">
+  To beaker:
+  <ion-input placeholder="New beaker" type="number" min="1" max="3" maxlength="1" [(ngModel)]="move.newBeaker">
+  </ion-input>
+</div>
+
+
+  <ion-button mode="ios" (click)="isMoveLegal()">
+    Make a move
+  </ion-button>
 </ion-content>
