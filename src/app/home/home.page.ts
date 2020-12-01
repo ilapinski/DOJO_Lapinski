@@ -19,8 +19,25 @@ export class HomePage {
 
   constructor() {}
 
+
+  
   public makeMove() {
+    const oldBeaker = this.allBeakers[this.move.oldBeaker - 1];
+    const newBeaker = this.allBeakers[this.move.newBeaker - 1];
+    const unitsToMove = this.getUnitLength(oldBeaker);
+
+    if (this.isMoveLegal() === true) {
+      for (let i = unitsToMove; i > 0; i--) {
+        const colorOfUnitToMove = this.findLastNonZeroElement(oldBeaker);
+        const indexOfOldUnit = this.getUnitLength(oldBeaker);
+        const indexOfNewUnit = this.getUnitLength(newBeaker) + 1;
+        this.allBeakers[this.move.oldBeaker - 1][indexOfOldUnit - 1] = 0;
+        this.allBeakers[this.move.newBeaker - 1][indexOfNewUnit - 1] = colorOfUnitToMove;
+      }
+    }
   }
+
+
 
   isMoveLegal() {
     // the target beaker has enough space for the entire liquid that is going to be poured into it
@@ -41,15 +58,15 @@ export class HomePage {
       firstRequirement = true;
     }
 
-    if (this.findLastNonZeroElement(oldBeaker) === this.findLastNonZeroElement(newBeaker)) {
+    if (this.findLastNonZeroElement(oldBeaker) === this.findLastNonZeroElement(newBeaker) ||
+        this.findLastNonZeroElement(newBeaker) === 0) {
       secondRequirement = true;
     }
 
-    console.log({
-      firstRequirement,
-      secondRequirement
-    });
+    return (firstRequirement && secondRequirement);
   }
+
+
 
   private findLastNonZeroElement(array: number[]) {
     let lastNonZero = 0;
@@ -64,6 +81,8 @@ export class HomePage {
 
     return lastNonZero;
   }
+
+
 
   private getUnitLength(array: number[]) {
     let unitLength = 0;
