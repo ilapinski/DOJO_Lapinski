@@ -80,6 +80,9 @@ export class HomePage {
 
   /**
    * Check whether the player has won or lost.
+   * If the user lost or won, the game ends. 
+   * The send button in the UI gets disabled.
+   * If user can still play, nothing happens.
    */
   checkIfGameEnds() {
     if (this.checkIfLegalMovesArePossible() === false) {
@@ -95,6 +98,10 @@ export class HomePage {
     }
   }
 
+  /**
+   * Checks if there are still some legal moves.
+   * @returns true, if possible, or false 
+   */
   checkIfLegalMovesArePossible() {
     let isPossible = false;
     for (let i = 5; i > 0; i--) {
@@ -107,13 +114,13 @@ export class HomePage {
   }
 
   /**
-   * Checks if the column has homogeneous content
+   * Checks if the column (beaker) has homogeneous content
    */
   checkForContent() {
     let hasSameContent = false;
 
     for (let i = 0; i < this.allBeakers.length; i++) { // every beaker
-      const isBeakerHomogeneous = this.allBeakers[i].every((value, index, array) => value === array[0]); // same content?
+      const isBeakerHomogeneous = this.allBeakers[i].every((value, index, array) => value === array[0]); // same content
       if(!isBeakerHomogeneous) {
         hasSameContent = false;
       }
